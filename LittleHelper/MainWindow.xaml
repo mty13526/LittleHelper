@@ -11,7 +11,7 @@
         <Button Content="关于" HorizontalAlignment="Left" Height="31" Margin="308,328,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click"/>
         <Button Content="设置" HorizontalAlignment="Left" Height="31" Margin="164,328,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click_1"/>
         <Button Content="导入" HorizontalAlignment="Left" Height="31" Margin="13,328,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="304" Margin="13,13,0,0" TextWrapping="Wrap" Text="请输入内容" VerticalAlignment="Top" Width="566" FontSize="14" AcceptsReturn="True"/>
+        <TextBox HorizontalAlignment="Left" Height="304" Margin="13,13,0,0" TextWrapping="Wrap" Text="请输入内容" VerticalAlignment="Top" Width="566" FontSize="14" AcceptsReturn="True" GotFocus="OnGotFocus" PreviewMouseDown="OnPreviewMouseDown" LostFocus="OnLostFocus"/>
 
     </Grid>
 </Window>

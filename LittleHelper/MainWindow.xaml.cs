@@ -37,5 +37,24 @@ namespace LittleHelper
             SettingWindow settingWindow = new SettingWindow();
             settingWindow.ShowDialog();
         }
+        private void OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = e.Source as TextBox;
+            tb.PreviewMouseDown += new MouseButtonEventHandler(OnPreviewMouseDown);
+        }
+
+        private void OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            TextBox tb = e.Source as TextBox;
+            tb.Focus();
+            e.Handled = true;
+        }
+ 
+         private void OnGotFocus(object sender, RoutedEventArgs e)
+         {
+            TextBox tb = e.Source as TextBox;
+            tb.SelectAll();
+            tb.PreviewMouseDown -= new MouseButtonEventHandler(OnPreviewMouseDown);
+         }
     }
 }
