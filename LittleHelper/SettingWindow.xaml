@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LittleHelper"
         mc:Ignorable="d"
-        Title="设置" Height="233" Width="275" ResizeMode="NoResize">
+        Title="设置" Height="233" Width="275" ResizeMode="NoResize" Closing="Window_Closing">
     <Grid x:Name="GridSetting">
         <Label Content="APIKey" HorizontalAlignment="Left" Height="28" Margin="32,16,0,0" VerticalAlignment="Top" Width="67" HorizontalContentAlignment="Right"/>
         <Label Content="SecretKey" HorizontalAlignment="Left" Height="28" Margin="32,44,0,0" VerticalAlignment="Top" Width="67" HorizontalContentAlignment="Right"/>

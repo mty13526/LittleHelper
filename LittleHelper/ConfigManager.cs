@@ -17,6 +17,11 @@ namespace LittleHelper
 
         public static void ReadConfig()
         {
+            if(!File.Exists(FileName))
+            {
+                SaveConfig();
+            }
+
             using (var sr = new StreamReader(FileName))
             {
                 string jstr = sr.ReadToEnd();

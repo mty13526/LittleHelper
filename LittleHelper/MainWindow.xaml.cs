@@ -23,6 +23,9 @@ namespace LittleHelper
         public MainWindow()
         {
             InitializeComponent();
+
+            // 加载配置
+            ConfigManager.ReadConfig();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -57,6 +60,11 @@ namespace LittleHelper
             tb.PreviewMouseDown -= new MouseButtonEventHandler(OnPreviewMouseDown);
         }
 
-
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            PlayerWindow playerWindow = new PlayerWindow();
+            playerWindow.Owner = this;
+            playerWindow.ShowWithText(this.TextBoxText.Text);
+        }
     }
 }

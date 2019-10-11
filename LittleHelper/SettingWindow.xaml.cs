@@ -24,5 +24,10 @@ namespace LittleHelper
             InitializeComponent();
             this.GridSetting.DataContext = ConfigManager.Config;
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ConfigManager.SaveConfig();
+        }
     }
 }
