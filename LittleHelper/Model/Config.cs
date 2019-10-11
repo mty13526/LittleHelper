@@ -15,9 +15,9 @@ namespace LittleHelper.Model
 
         }
 
-        public string BaiduAPIKey { get; set; } = "123"; // API Key
+        public string BaiduAPIKey { get; set; } // API Key
 
-        public string BaiduSecretKey { get; set; } = "456"; // Secret Key
+        public string BaiduSecretKey { get; set; } // Secret Key
 
         public int VoiceSpeed { get; set; } // 语音语速
         public int VoiceVolume { get; set; } // 语音音量

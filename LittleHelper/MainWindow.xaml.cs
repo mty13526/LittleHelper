@@ -20,6 +20,16 @@ namespace LittleHelper
     /// </summary>
     public partial class MainWindow : Window
     {
+        /*
+         * TODO:
+         * 快捷键的设置以及使用
+         * 新的复读(?)线程的处理方法
+         * 对设置参数的检查
+         * 下载失败/损坏(我觉得可能是多线程的问题)的重试
+         * 句子当前个数/总数的提示
+         */
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -39,6 +49,7 @@ namespace LittleHelper
         {
             SettingWindow settingWindow = new SettingWindow();
             settingWindow.ShowDialog();
+            ConfigManager.SaveConfig();
         }
         private void OnLostFocus(object sender, RoutedEventArgs e)
         {
@@ -63,7 +74,7 @@ namespace LittleHelper
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             PlayerWindow playerWindow = new PlayerWindow();
-            playerWindow.Owner = this;
+            //playerWindow.Owner = this;
             playerWindow.ShowWithText(this.TextBoxText.Text);
         }
     }

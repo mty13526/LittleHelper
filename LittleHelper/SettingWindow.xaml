@@ -5,20 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LittleHelper"
         mc:Ignorable="d"
-        Title="设置" Height="233" Width="275" ResizeMode="NoResize" Closing="Window_Closing">
-    <Grid x:Name="GridSetting">
+        Title="设置" Height="233" Width="320" ResizeMode="NoResize" Closing="Window_Closing">
+    <Grid x:Name="GridSetting" Margin="0,0,4,0">
         <Label Content="APIKey" HorizontalAlignment="Left" Height="28" Margin="32,16,0,0" VerticalAlignment="Top" Width="67" HorizontalContentAlignment="Right"/>
         <Label Content="SecretKey" HorizontalAlignment="Left" Height="28" Margin="32,44,0,0" VerticalAlignment="Top" Width="67" HorizontalContentAlignment="Right"/>
         <Label Content="音量" HorizontalAlignment="Left" Height="28" Margin="32,72,0,0" VerticalAlignment="Top" Width="67" HorizontalContentAlignment="Right"/>
-        <Label Content="重复间隔(ms)" HorizontalAlignment="Left" Height="28" Margin="0,95,0,0" VerticalAlignment="Top" Width="99" RenderTransformOrigin="0.164,0.571" HorizontalContentAlignment="Right"/>
+        <Label Content="重复间隔(s)" HorizontalAlignment="Left" Height="28" Margin="0,95,0,0" VerticalAlignment="Top" Width="99" RenderTransformOrigin="0.164,0.571" HorizontalContentAlignment="Right"/>
         <Label Content="语速" HorizontalAlignment="Left" Height="28" Margin="32,123,0,0" VerticalAlignment="Top" Width="67" HorizontalContentAlignment="Right"/>
         <Label Content="发音人" HorizontalAlignment="Left" Height="28" Margin="32,151,0,0" VerticalAlignment="Top" Width="67" HorizontalContentAlignment="Right"/>
-        <TextBox HorizontalAlignment="Left" Text="{Binding BaiduAPIKey}" Height="18" Margin="105,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131"/>
-        <TextBox HorizontalAlignment="Left" Text="{Binding BaiduSecretKey}" Height="18" Margin="105,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131"/>
-        <TextBox HorizontalAlignment="Left" Text="{Binding VoiceVolume}" Height="18" Margin="105,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131"/>
-        <TextBox HorizontalAlignment="Left" Text="{Binding RepeatInterval}" Height="18" Margin="105,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131"/>
-        <TextBox HorizontalAlignment="Left" Text="{Binding VoiceSpeed}" Height="18" Margin="105,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131"/>
-        <ComboBox HorizontalAlignment="Left" SelectedIndex="{Binding VoicePerson}" Height="18" Margin="105,154,0,0" VerticalAlignment="Top" Width="131"/>
+        <TextBox HorizontalAlignment="Left" Text="{Binding BaiduAPIKey}" Height="18" Margin="105,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188"/>
+        <TextBox HorizontalAlignment="Left" Text="{Binding BaiduSecretKey}" Height="18" Margin="105,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188"/>
+        <TextBox HorizontalAlignment="Left" Text="{Binding VoiceVolume}" Height="18" Margin="105,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188"/>
+        <TextBox HorizontalAlignment="Left" Text="{Binding RepeatInterval}" Height="18" Margin="105,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188"/>
+        <TextBox HorizontalAlignment="Left" Text="{Binding VoiceSpeed}" Height="18" Margin="105,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188"/>
+        <ComboBox HorizontalAlignment="Left" SelectedIndex="{Binding VoicePerson}" Height="18" Margin="105,154,0,0" VerticalAlignment="Top" Width="188"/>
 
     </Grid>
 </Window>
