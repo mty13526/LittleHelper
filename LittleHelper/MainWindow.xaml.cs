@@ -29,7 +29,7 @@ namespace LittleHelper
         {
             AboutWindow aboutWindow = new AboutWindow();
             aboutWindow.ShowDialog();
-               
+
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -49,12 +49,14 @@ namespace LittleHelper
             tb.Focus();
             e.Handled = true;
         }
- 
-         private void OnGotFocus(object sender, RoutedEventArgs e)
-         {
+
+        private void OnGotFocus(object sender, RoutedEventArgs e)
+        {
             TextBox tb = e.Source as TextBox;
             tb.SelectAll();
             tb.PreviewMouseDown -= new MouseButtonEventHandler(OnPreviewMouseDown);
-         }
+        }
+
+
     }
 }

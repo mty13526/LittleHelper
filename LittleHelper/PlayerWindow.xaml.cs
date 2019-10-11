@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Media;
+using NAudio.Wave;
 
 namespace LittleHelper
 {
@@ -19,9 +21,12 @@ namespace LittleHelper
     /// </summary>
     public partial class PlayerWindow : Window
     {
+        private WaveOutEvent waveOutEvent = new WaveOutEvent();
+
         public PlayerWindow()
         {
             InitializeComponent();
+            
         }
     }
 }
