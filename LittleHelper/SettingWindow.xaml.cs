@@ -22,6 +22,7 @@ namespace LittleHelper
         public SettingWindow()
         {
             InitializeComponent();
+            this.GridSetting.DataContext = ConfigManager.Config;
         }
     }
 }

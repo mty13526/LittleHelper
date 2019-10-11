@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LittleHelper"
         mc:Ignorable="d"
-        Title="小扳手" Height="400" Width="600" ResizeMode="CanMinimize">
+        Title="小扳手" Height="411.093" Width="600" ResizeMode="CanMinimize">
     <Grid>
         <Button Content="开始" HorizontalAlignment="Left" Margin="459,328,0,0" VerticalAlignment="Top" Width="120" Height="31"/>
         <Button Content="关于" HorizontalAlignment="Left" Height="31" Margin="308,328,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click"/>
