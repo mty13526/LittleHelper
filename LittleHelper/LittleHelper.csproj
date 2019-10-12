@@ -67,6 +67,7 @@
     </Compile>
     <Compile Include="ConfigManager.cs" />
     <Compile Include="Model\Config.cs" />
+    <Compile Include="Model\KeyBindingInfo.cs" />
     <Compile Include="PlayerWindow.xaml.cs">
       <DependentUpon>PlayerWindow.xaml</DependentUpon>
     </Compile>

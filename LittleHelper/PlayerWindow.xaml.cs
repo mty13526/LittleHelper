@@ -57,7 +57,6 @@ namespace LittleHelper
 
             if (window.SleepInterval == Timeout.Infinite)
             {
-                window.PlayCurrentSound();
                 return;
             }
 
@@ -71,10 +70,9 @@ namespace LittleHelper
                 {
                     Thread.Sleep(interval);
                 }
-                else
-                {
-                    window.ResetVoice = false;
-                }
+
+
+                window.ResetVoice = false;
 
                 if (window?.Visibility != Visibility.Visible) return;
                 if (token.IsCancellationRequested) return;
