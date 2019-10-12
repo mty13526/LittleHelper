@@ -27,16 +27,19 @@ namespace LittleHelper
         private Tts baiduTts;
         private int npos = 0;
         public int SleepInterval;
+        public bool ResetVoice { get; set; }
 
-        private CancellationTokenSource tokenSource;
-        private ManualResetEvent resetEvent;
+        private object lk = new object();
+
+        private CancellationTokenSource tokenSource = new CancellationTokenSource();
+        private ManualResetEvent pauseEvent = new ManualResetEvent(true);
 
         private Dictionary<int, byte[]> preloadVoice = new Dictionary<int, byte[]>();
         private Dictionary<string, object> baiduOption = new Dictionary<string, object>()
         {
             { "spd", ConfigManager.Config.VoiceSpeed },
             { "vol", ConfigManager.Config.VoiceVolume },
-            { "per", (int)ConfigManager.Config.VoicePerson },
+            { "per", ConfigManager.Config.VoicePersonInt },
             { "aue", 6 } // 使用wav格式
         };
 
@@ -45,10 +48,12 @@ namespace LittleHelper
         {
             var s = (object[])state;
             var window = (PlayerWindow)s[0];
-            if (window.patterns.Length == 0) return;
+            if (window.patterns == null || window.patterns.Length == 0) return;
+
+            var interval = window.SleepInterval;
 
             var token = (CancellationToken)s[1];
-            var resetEvent = (ManualResetEvent)s[2];
+            var pauseEvent = (ManualResetEvent)s[2];
 
             if (window.SleepInterval == Timeout.Infinite)
             {
@@ -58,14 +63,20 @@ namespace LittleHelper
 
             while (true)
             {
-                if (token.IsCancellationRequested) return;
 
+                pauseEvent.WaitOne();
                 window.PlayCurrentSound();
 
-                resetEvent.WaitOne();
+                if (!window.ResetVoice)
+                {
+                    Thread.Sleep(interval);
+                }
+                else
+                {
+                    window.ResetVoice = false;
+                }
 
-                await Task.Delay(window.SleepInterval);
-
+                if (window?.Visibility != Visibility.Visible) return;
                 if (token.IsCancellationRequested) return;
             }
 
@@ -100,7 +111,7 @@ namespace LittleHelper
             set
             {
                 this.text = value;
-                patterns = LittleHelper.Text.Split(value).Select(i => i.Trim()).Where(i => i != string.Empty).ToArray();
+                patterns = LittleHelper.Text.Split(value);
 
                 if (patterns.Length != 0)
                     this.Pos = 0;
@@ -138,7 +149,7 @@ namespace LittleHelper
             InitializeComponent();
 
             this.baiduTts = new Tts(ConfigManager.Config.BaiduAPIKey, ConfigManager.Config.BaiduSecretKey);
-            this.baiduTts.Timeout = 5000;
+            this.baiduTts.Timeout = 10000;
 
             this.SleepInterval = ConfigManager.Config.RepeatInterval * 1000;
             if (this.SleepInterval <= 0) this.SleepInterval = Timeout.Infinite;
@@ -161,11 +172,10 @@ namespace LittleHelper
             if (this.Pos != cpos)
             {
                 this.ResetRepeatTimer();
-                Task.Run(() =>
-                {
-                    this.PlayCurrentSound();
-                    PreloadVoice(this.Pos + 1); // 预加载下一句，确保流畅
-                });
+                //Task.Run(() =>
+                //{
+                //    PreloadVoice(this.Pos + 1); // 预加载下一句，确保流畅
+                //});
             }   
         }
 
@@ -184,7 +194,8 @@ namespace LittleHelper
         private void ButtonPause_Click(object sender, RoutedEventArgs e)
         {
             this.Paused = !this.Paused;
-            
+            if (this.paused) pauseEvent.Reset();
+            else pauseEvent.Set();
         }
 
         /// <summary>
@@ -222,12 +233,27 @@ namespace LittleHelper
         private void PlaySound(int n)
         {
             if (n > this.MaxPos || n < 0) return;
+
             byte[] value = null;
-            var preloaded = this.preloadVoice.TryGetValue(n, out value);
+            bool preloaded;
+
+            try
+            {
+                Monitor.Enter(this.lk);
+                preloaded = this.preloadVoice.TryGetValue(n, out value);
+            } finally
+            {
+                Monitor.Exit(this.lk);
+            }
+
+
             if(!preloaded)
             {
                 var errmsg = GetVoice(this.patterns[n], out value);
                 if (value == null) throw new Exception("无法加载声音: " + errmsg);
+                
+                if (this.preloadVoice.ContainsKey(n))
+                    this.preloadVoice.Add(n, value); // 省得加载第二遍
             }
 
             soundPlayer.Stream = new MemoryStream(value);
@@ -238,14 +264,23 @@ namespace LittleHelper
         {
             if (this.preloadVoice.ContainsKey(n)) return;
 
-            if (n > this.MaxPos || n < 0) return;
-            var text = patterns[n];
+            try
+            {
+                Monitor.Enter(this.lk);
+                if (n > this.MaxPos || n < 0) return;
+                var text = patterns[n];
 
-            byte[] data;
-            var errmsg = GetVoice(this.patterns[n], out data);
-            if (data == null) throw new Exception(errmsg);
+                byte[] data;
+                var errmsg = GetVoice(this.patterns[n], out data);
+                if (data == null) throw new Exception(errmsg);
 
-            this.preloadVoice.Add(n, data);
+                this.preloadVoice.Add(n, data);
+            }
+            finally
+            {
+                Monitor.Exit(this.lk);
+            }
+
         }
 
         private void UnLoadVoice(int n)
@@ -255,26 +290,15 @@ namespace LittleHelper
 
         private void ResetRepeatTimer()
         {
-            if(this.tokenSource != null) this.tokenSource.Cancel(); // 取消掉上个播放线程
-
-            this.tokenSource = new CancellationTokenSource();
-            this.resetEvent = new ManualResetEvent(true);
-
-            if (this.repeatTimerTask != null)
+            if (this.repeatTimerTask == null || this.repeatTimerTask.IsCompleted)
             {
-                this.repeatTimerTask.ContinueWith((_) =>
-                {
-                    this.repeatTimerTask = new Task(repeatTimer, new object[] { this, tokenSource.Token, resetEvent });
-                    repeatTimerTask.Start();
-                });
-
-            } else
-            {
-                this.repeatTimerTask = new Task(repeatTimer, new object[] { this, tokenSource.Token, resetEvent });
+                this.repeatTimerTask = new Task(repeatTimer, new object[] { this, tokenSource.Token, pauseEvent });
                 this.repeatTimerTask.Start();
             }
-
-
+            else
+            {
+                this.ResetVoice = true;
+            }
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {

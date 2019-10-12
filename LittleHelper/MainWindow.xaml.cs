@@ -23,12 +23,11 @@ namespace LittleHelper
         /*
          * TODO:
          * 快捷键的设置以及使用
-         * 新的复读(?)线程的处理方法
          * 对设置参数的检查
          * 下载失败/损坏(我觉得可能是多线程的问题)的重试
          * 句子当前个数/总数的提示
+         * 人声的ComboBox
          */
-
 
         public MainWindow()
         {
@@ -76,6 +75,7 @@ namespace LittleHelper
             PlayerWindow playerWindow = new PlayerWindow();
             //playerWindow.Owner = this;
             playerWindow.ShowWithText(this.TextBoxText.Text);
+            playerWindow.Close();
         }
     }
 }

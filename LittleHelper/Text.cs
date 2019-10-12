@@ -10,8 +10,8 @@ namespace LittleHelper
     {
         public static string[] Split(string text)
         {
-            var separator = new char[] { ',', '，', '。', '？', '；' };
-            return text.Split(separator);
+            var separator = new char[] { ',', '，', '。', '？', '；', '\n'};
+            return text.Split(separator).Select(i => i.Trim()).Where(i => i != string.Empty).ToArray();
         }
     }
 }
