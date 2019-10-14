@@ -32,9 +32,7 @@ namespace LittleHelper
         public MainWindow()
         {
             InitializeComponent();
-
-            // 加载配置
-            ConfigManager.ReadConfig();
+            ConfigManager.ReadConfig(); // 加载配置
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -65,6 +63,7 @@ namespace LittleHelper
 
         private void OnGotFocus(object sender, RoutedEventArgs e)
         {
+            // 当获得焦点时，会全选文本
             TextBox tb = e.Source as TextBox;
             tb.SelectAll();
             tb.PreviewMouseDown -= new MouseButtonEventHandler(OnPreviewMouseDown);
@@ -72,6 +71,7 @@ namespace LittleHelper
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
+            // 创建播放窗口
             PlayerWindow playerWindow = new PlayerWindow();
             //playerWindow.Owner = this;
             playerWindow.ShowWithText(this.TextBoxText.Text);

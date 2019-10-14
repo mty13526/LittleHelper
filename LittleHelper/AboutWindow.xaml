@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LittleHelper"
         mc:Ignorable="d"
-        Title="关于" Height="228" Width="379" ResizeMode="NoResize" >
+        Title="关于" Height="131" Width="379" ResizeMode="NoResize" >
     <Grid>
-        <TextBlock HorizontalAlignment="Left" Height="159" Margin="20,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="333" FontSize="16"><Run Text="这是一些关于文本"/><LineBreak/><Run Text="为了美观起见"/><LineBreak/><Run Text="我会不择手段把它填满"/><LineBreak/><Run Text="看上去说不定会好一"/><Run Text="点"/><LineBreak/><Run Text="事实上只是我想多了"/><LineBreak/><Run Text="看上去还是一样的难看"/><LineBreak/><Run/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Height="72" Margin="20,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="333" FontSize="16" TextAlignment="Center"><Run Text="小帮手V0.0.1"/><LineBreak/><Run Text="一个帮助你听写句子的小工具"/><LineBreak/><Run Text="by mty&amp;lyt"/></TextBlock>
 
     </Grid>
 </Window>

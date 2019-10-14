@@ -13,7 +13,13 @@ namespace LittleHelper.Model
 
         public class Keys
         {
+            /// <summary>
+            /// 特殊键(Ctrl Alt Win等)，以|的形式保存
+            /// </summary>
             public ModifierKeys[] ModifierKeys;
+            /// <summary>
+            /// 普通键
+            /// </summary>
             public Key NormalKey;
 
             public override string ToString()
@@ -42,7 +48,9 @@ namespace LittleHelper.Model
 
         }
 
-
+        /// <summary>
+        /// 合成后的特殊键
+        /// </summary>
         public ModifierKeys Modifiers
         {
             get
@@ -88,6 +96,9 @@ namespace LittleHelper.Model
             }
         }
 
+        /// <summary>
+        /// 应用快捷键
+        /// </summary>
         public void Apply()
         {
             this.BindedKeys = this.UnbindedKeys;

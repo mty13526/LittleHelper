@@ -17,7 +17,7 @@ namespace LittleHelper
 
         public static void ReadConfig()
         {
-            if(!File.Exists(FileName))
+            if(!File.Exists(FileName)) // 如果配置文件不存在，就创建一个默认配置文件
             {
                 SaveConfig();
             }
@@ -25,7 +25,7 @@ namespace LittleHelper
             using (var sr = new StreamReader(FileName))
             {
                 string jstr = sr.ReadToEnd();
-                Config = JsonConvert.DeserializeObject<Config>(jstr);
+                Config = JsonConvert.DeserializeObject<Config>(jstr); // 反序列化到配置对象
             }
         }
 
@@ -33,7 +33,7 @@ namespace LittleHelper
         {
             using (var sw = new StreamWriter(FileName))
             {
-                var jstr = JsonConvert.SerializeObject(Config);
+                var jstr = JsonConvert.SerializeObject(Config); // 序列化并写到文件
                 sw.Write(jstr);
             }
         }

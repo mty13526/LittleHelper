@@ -10,14 +10,31 @@ namespace LittleHelper.Model
 {
     class Config
     {
-        public string BaiduAPIKey { get; set; } // API Key
+        /// <summary>
+        /// API Key
+        /// </summary>
+        public string BaiduAPIKey { get; set; }
 
-        public string BaiduSecretKey { get; set; } // Secret Key
+        /// <summary>
+        /// Secret Key
+        /// </summary>
+        public string BaiduSecretKey { get; set; }
 
-        public int VoiceSpeed { get; set; } // 语音语速
-        public int VoiceVolume { get; set; } // 语音音量
+        /// <summary>
+        /// 语音语速
+        /// </summary>
+        public int VoiceSpeed { get; set; }
+        /// <summary>
+        /// 语音音量
+        /// </summary>
+        public int VoiceVolume { get; set; }
+        /// <summary>
+        /// 语音人
+        /// </summary>
         public int VoicePersonInt { get; set; }
-
-        public int RepeatInterval { get; set; } // 句子重复间隔
+        /// <summary>
+        /// 句子重复间隔
+        /// </summary>
+        public int RepeatInterval { get; set; }
     }
 }
