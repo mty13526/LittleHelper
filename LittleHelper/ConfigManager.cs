@@ -19,6 +19,12 @@ namespace LittleHelper
         {
             if(!File.Exists(FileName)) // 如果配置文件不存在，就创建一个默认配置文件
             {
+                Config.BaiduAPIKey = "wjZQdBsgnqjaRisL7Ufo01bO";
+                Config.BaiduSecretKey = "kYdmEvCDkgKG0ngPzO74WuxNGbm4Eyy6";
+                Config.VoiceSpeed = 5;          //默认语速：5
+                Config.VoiceVolume = 5;         //默认音量：5
+                Config.VoicePersonInt = 3;      //默认发音人：度逍遥
+                Config.RepeatInterval = 2;      //默认间隔：2s
                 SaveConfig();
             }
 

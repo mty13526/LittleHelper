@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace LittleHelper
 {
@@ -76,6 +77,23 @@ namespace LittleHelper
             //playerWindow.Owner = this;
             playerWindow.ShowWithText(this.TextBoxText.Text);
             playerWindow.Close();
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog();
+            ofd.DefaultExt = ".txt";
+            ofd.Filter = "txt　file|*.txt";
+            if (ofd.ShowDialog() == true)
+            {
+                using (var sr = new StreamReader(ofd.FileName))
+                {
+                    string jstr = sr.ReadToEnd();
+                    PlayerWindow playerWindow = new PlayerWindow();
+                    playerWindow.ShowWithText(jstr);
+                    playerWindow.Close();
+                }
+            }
         }
     }
 }
