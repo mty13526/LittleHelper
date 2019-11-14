@@ -371,5 +371,6 @@ namespace LittleHelper
         {
             this.tokenSource.Cancel(); // 取消复读线程
         }
+        
     }
 }

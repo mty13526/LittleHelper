@@ -10,7 +10,7 @@ namespace LittleHelper.Model
 {
     public class KeyBindingInfo
     {
-
+        
         public class Keys
         {
             /// <summary>
